@@ -14,7 +14,7 @@ linux:
       arch:
         - x64
         - ia32
-  category: network
+  category: game
 mac:
   artifactName: Katatsumuri_Setup_macOS_${arch}.${ext}
   target:
