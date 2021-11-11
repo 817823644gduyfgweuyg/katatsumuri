@@ -1,0 +1,28 @@
+appId: 'com.hiroqss.katatsumuri'
+productName: 'Katatsumuri'
+win:
+  artifactName: Katatsumuri_Portable_Windows_${arch}.${ext}
+  target:
+    - target: nsis
+      arch:
+        - x64
+        - ia32
+linux:
+  artifactName: Katatsumuri_Setup_Linux_${arch}.${ext}
+  target:
+    - target: appImage
+      arch:
+        - x64
+        - ia32
+  category: network
+mac:
+  artifactName: Katatsumuri_Setup_macOS_${arch}.${ext}
+  target:
+    - target: dmg
+      arch:
+        - x64
+nsis:
+  artifactName: Katatsumuri_Setup_Windows_${arch}.${ext}
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
