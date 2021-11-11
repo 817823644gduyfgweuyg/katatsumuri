@@ -1,0 +1,56 @@
+@font-face {
+    font-family: "Aldrich Regular";
+    src: url('../assets/fonts/Aldrich-Regular.ttf');
+}
+
+@font-face {
+    font-family: "Makinas4 Flat";
+    src: url('../assets/fonts/Makinas-4-Flat.otf');
+}
+
+@font-face {
+    font-family: "Gugi-Regular";
+    src: url('../assets/fonts/Gugi-Regular.ttf');
+}
+
+* {
+    user-select: none;
+    outline: none;
+    font-family: "Aldrich Regular", "Makinas4 Flat";
+    font-size: 15pt;
+    color: rgb(27, 27, 27);
+}
+
+body {
+    width: 620px;
+    height: 300px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    overflow: hidden;
+    margin: 0px;
+    background-color: rgb(216, 216, 216);
+    border: 10px solid rgb(27, 27, 27);
+}
+
+#titleText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Gugi-Regular';
+    font-size: 50pt;
+}
+
+#statusText {
+    position: absolute;
+    left: 5px;
+    bottom: 5px;
+}
+#versionText {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+}

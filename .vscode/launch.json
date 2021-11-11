@@ -1,0 +1,10 @@
+{
+    "configurations": [
+    {
+        "command": "node_modules\\electron\\dist\\electron.exe .",
+        "name": "Electron",
+        "request": "launch",
+        "type": "node-terminal"
+    }
+    ]
+}
