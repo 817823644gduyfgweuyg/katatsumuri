@@ -135,7 +135,6 @@ const initGameWindow = () => {
         roundedCorners: false,
         webPreferences: {
             contextIsolation: false,
-            nativeWindowOpen: true,
             preload: path.join(__dirname, 'scripts/preload.js'),
         },
     });
@@ -147,16 +146,19 @@ const initGameWindow = () => {
         gameWindow.show();
     });
     gameWindow.on('page-title-updated', (e) => e.preventDefault());
+    gameWindow.webContents.on('will-prevent-unload', (e) => {
+        e.preventDefault();
+    });
     gameWindow.on('close', () => {
         config.set('isMaximized', gameWindow.isMaximized());
         config.set('isFullScreen', gameWindow.isFullScreen());
     });
-    gameWindow.webContents.setWindowOpenHandler(({ url }) => {
+    gameWindow.webContents.on('new-window', (e, url) => {
+        e.preventDefault();
         shell.openExternal(url);
-        return { action: 'deny' };
     });
     const sKey = [
-        ['Esc', () => {
+        ['Escape', () => {
             // ゲーム内でのESCキーの有効化
             gameWindow.webContents.send('ESC');
         }],
