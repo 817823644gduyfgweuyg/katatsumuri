@@ -49,8 +49,7 @@ initFlags();
 
 // ゲーム開始処理
 const launchGame = () => {
-    splashWindow.destroy();
-    gameWindow = initGameWindow();
+    initGameWindow();
 };
 
 // スプラッシュウィンドウを表示&アップデートの確認
@@ -68,6 +67,7 @@ const initSplashWindow = () => {
         roundedCorners: false,
         webPreferences: {
             contextIsolation: false,
+            nativeWindowOpen: true,
             preload: path.join(__dirname, 'scripts/splash.js'),
         },
     });
@@ -90,6 +90,9 @@ const initSplashWindow = () => {
         autoUpdater.on('update-not-available', (info) => {
             if (updateTimeout) clearTimeout(updateTimeout);
             splashWindow.webContents.send('status', 'This is the latest version');
+            setTimeout(() => {
+                launchGame();
+            }, 2000);
         });
         autoUpdater.on('download-progress', (info) => {
             if (updateTimeout) clearTimeout(updateTimeout);
@@ -132,11 +135,13 @@ const initGameWindow = () => {
         roundedCorners: false,
         webPreferences: {
             contextIsolation: false,
+            nativeWindowOpen: true,
             preload: path.join(__dirname, 'scripts/preload.js'),
         },
     });
     gameWindow.removeMenu();
     gameWindow.once('ready-to-show', () => {
+        splashWindow.destroy();
         if (config.get('isMaximized', false)) gameWindow.maximize();
         if (config.get('isFullScreen', false)) gameWindow.setFullScreen(true);
         gameWindow.show();
@@ -150,7 +155,7 @@ const initGameWindow = () => {
         shell.openExternal(url);
         return { action: 'deny' };
     });
-    [
+    const sKey = [
         ['Esc', () => {
             // ゲーム内でのESCキーの有効化
             gameWindow.webContents.send('ESC');
@@ -174,7 +179,8 @@ const initGameWindow = () => {
             // 開発者ツールの起動
             gameWindow.webContents.openDevTools();
         }],
-    ].forEach((k) => {
+    ];
+    sKey.forEach((k) => {
         localShortcut.register(gameWindow, k[0], k[1]);
     });
     gameWindow.loadURL('https://voxiom.io');
