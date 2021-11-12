@@ -42,6 +42,8 @@ const initFlags = () => {
     app.commandLine.appendSwitch('in-process-gpu', process.platform === 'win32' ? true : false);
     // メディアの自動再生
     app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
+    // ANGLE Backend
+    app.commandLine.appendSwitch('use-angle', 'gl');
 };
 
 initFlags();
